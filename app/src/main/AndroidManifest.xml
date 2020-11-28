@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ClinicalReports">
+        <activity
+            android:name=".DrawerMaestro"
+            android:label="@string/title_activity_drawer_maestro"
+            android:theme="@style/Theme.ClinicalReports.NoActionBar"></activity>
+        <activity android:name=".RegistroActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
