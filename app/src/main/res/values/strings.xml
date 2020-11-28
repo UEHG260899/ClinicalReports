@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">ClinicalReports</string>
+
+    <!--Cadenas del login-->
+    <string name="titulo">¡Bienvenido a Clinical Reports!</string>
+    <string name="correo">Correo electrónico</string>
+    <string name="contrasenia">Contraseña</string>
+    <string name="leyenda_registro">¿Aún no esta registrado? Haga click aqui (Exclusivo profesores)</string>
+    <string name="ingresar">Ingresar</string>
+
+
+    <!--Cadenas del registro-->
+    <string name="titulo_reg">Necesitamos algunos datos</string>
+    <string name="conf_cont">Confirmar contraseña</string>
+    <string name="nombre">Nombre</string>
+    <string name="clave_maestro">Clave de Docente</string>
+    <string name="registro">Registrarse</string>
+    <string name="title_activity_drawer_maestro">DrawerMaestro</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!--Cadenas del drawer de maestro-->
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Alta de Alumnos</string>
+    <string name="menu_slideshow">Baja de Alumnos</string>
+    <string name="menu_listarp">Listar Reportes</string>
 </resources>
