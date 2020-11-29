@@ -28,4 +28,10 @@
     <string name="menu_gallery">Alta de Alumnos</string>
     <string name="menu_slideshow">Baja de Alumnos</string>
     <string name="menu_listarp">Listar Reportes</string>
+    <string name="title_activity_alumno_drawer">AlumnoDrawer</string>
+
+    <!--Cadenas del drawer de alumno-->
+    <string name="menu_home_alu">Bienvenido</string>
+    <string name="menu_crear_rep">Crear un reporte</string>
+    <string name="menu_listar_rep_alu">Lista de Reportes</string>
 </resources>
