@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ClinicalReports" >
         <activity
-            android:name=".AlumnoDrawer"
+            android:name=".DrawerAlumno"
             android:label="@string/title_activity_alumno_drawer"
             android:theme="@style/Theme.ClinicalReports.NoActionBar" >
         </activity>
