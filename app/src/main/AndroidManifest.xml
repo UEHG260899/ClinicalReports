@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.clinicalreports">
+    package="com.example.clinicalreports" >
 
     <application
         android:allowBackup="true"
@@ -8,13 +8,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ClinicalReports">
+        android:theme="@style/Theme.ClinicalReports" >
+        <activity
+            android:name=".AlumnoDrawer"
+            android:label="@string/title_activity_alumno_drawer"
+            android:theme="@style/Theme.ClinicalReports.NoActionBar" >
+        </activity>
         <activity
             android:name=".DrawerMaestro"
             android:label="@string/title_activity_drawer_maestro"
-            android:theme="@style/Theme.ClinicalReports.NoActionBar"></activity>
+            android:theme="@style/Theme.ClinicalReports.NoActionBar" />
         <activity android:name=".RegistroActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
