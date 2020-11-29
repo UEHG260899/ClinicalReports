@@ -17,7 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
-public class AlumnoDrawer extends AppCompatActivity {
+public class DrawerAlumno extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 

@@ -24,14 +24,42 @@
     <string name="action_settings">Settings</string>
 
     <!--Cadenas del drawer de maestro-->
-    <string name="menu_home">Home</string>
+    <string name="menu_home">Inicio</string>
     <string name="menu_gallery">Alta de Alumnos</string>
     <string name="menu_slideshow">Baja de Alumnos</string>
     <string name="menu_listarp">Listar Reportes</string>
-    <string name="title_activity_alumno_drawer">AlumnoDrawer</string>
+    <!--Home-->
+    <string name="titulo_home">¡Bienvenido a Clinical Reports!</string>
+    <string name="desc_home">Para comenzar, haga click en el menú de la izquierda</string>
+    <!--Crear alumno-->
+    <string name="titulo_crearAl">Vamos a dar de alta algunos alumnos:</string>
+    <string name="nom_alu">Nombre del Alumno</string>
+    <string name="apellido">Apellido</string>
+    <string name="noCtrl">No. de Control</string>
+    <string name="agregar_alu">Agregar Alumno</string>
+    <!--Eliminar alumno-->
+    <string name="titulo_eliminarAl">Ahora viene lo triste... Eliminemos a un alumno</string>
+    <string name="busca_alu">Buscar Alumno</string>
+    <string name="eliminar_alu">Eliminar Alumno</string>
+    <!--Listar reportes-->
+    <string name="titulo_busq_prof">Ingrese el número de control de un alumno para desplegar los reportes que ha enviado</string>
 
     <!--Cadenas del drawer de alumno-->
+    <string name="title_activity_alumno_drawer">AlumnoDrawer</string>
     <string name="menu_home_alu">Bienvenido</string>
     <string name="menu_crear_rep">Crear un reporte</string>
     <string name="menu_listar_rep_alu">Lista de Reportes</string>
+    <!--Crear reportes-->
+    <string name="titulo_crear_rep">Comenzemos a crear tu reporte:</string>
+    <string name="titulo_duenio">Datos del Dueño</string>
+    <string name="telefono">Teléfono</string>
+    <string name="titulo_animal">Datos del animal</string>
+    <string name="fecha_nac_caballo">Fecha de nacimiento</string>
+    <string name="diagnostico">Diagnóstico</string>
+    <string name="especie">Especie</string>
+    <string name="tratamiento">Tratamiento</string>
+    <string name="crear_repo">Crear reporte</string>
+    <!--Listar reportes alu-->
+    <string name="titulo_listar_al">Aqui podras ver todos los reportes que has enviado</string>
+    <string name="limpia_alu">Limpiar</string>
 </resources>
