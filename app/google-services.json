@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "124916670993",
+    "firebase_url": "https://clinical-reports.firebaseio.com",
+    "project_id": "clinical-reports",
+    "storage_bucket": "clinical-reports.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124916670993:android:81b522c59d03f85b0b07b0",
+        "android_client_info": {
+          "package_name": "com.example.clinicalreports"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124916670993-posacop8lhllqgn16qjg6d9g9kgveucm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsfcxVXnV6V80j_SQZhwWS52W1nt_A7y0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124916670993-posacop8lhllqgn16qjg6d9g9kgveucm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
