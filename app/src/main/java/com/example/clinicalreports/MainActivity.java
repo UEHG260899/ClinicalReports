@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
                             }else{
                                 //esto se debe de cambiar para que verifique si es un alumno o maestro
                                 startActivity(new Intent(MainActivity.this, DrawerMaestro.class));
+
+                                //comentario de prueba
                             }
                         }
                     });
