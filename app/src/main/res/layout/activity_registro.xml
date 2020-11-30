@@ -90,7 +90,7 @@
             android:hint="@string/clave_maestro">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etEmail"
+                android:id="@+id/etClaveR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number|textEmailAddress" />
