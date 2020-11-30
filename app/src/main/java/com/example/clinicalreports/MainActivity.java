@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null){
                     Toast.makeText(MainActivity.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
-                    //Consulta para saber si es alumno o maestro
+                    //esto se debe de cambiar para que verifique si es un alumno o maestro
+                    startActivity(new Intent(MainActivity.this, DrawerMaestro.class));
                 }
             }
         };
