@@ -70,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(!task.isSuccessful()){
                                 Toast.makeText(MainActivity.this, "Ocurrio un error", Toast.LENGTH_LONG);
+                            }else{
+                                //esto se debe de cambiar para que verifique si es un alumno o maestro
+                                startActivity(new Intent(MainActivity.this, DrawerMaestro.class));
                             }
                         }
                     });
