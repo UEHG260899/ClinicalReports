@@ -18,6 +18,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -45,7 +48,6 @@ public class RegistroActivity extends AppCompatActivity {
                 String pass = etPass.getText().toString();
                 String passConf = etPassConf.getText().toString();
                 String clave = etClave.getText().toString();
-
                 if(correo.isEmpty() || pass.isEmpty() || passConf.isEmpty() || clave.isEmpty()){
                     Toast.makeText(RegistroActivity.this, "No puede haber campos vacios", Toast.LENGTH_LONG).show();
                 }else if(!pass.equals(passConf)){
@@ -65,7 +67,21 @@ public class RegistroActivity extends AppCompatActivity {
                                 databaseReference.child("Profesor").child(profesor.getClave()).setValue(profesor);
                                 startActivity(new Intent(RegistroActivity.this, DrawerMaestro.class));
                             }else{
-
+                                //Manejo de excepciones con la autenticación
+                                try {
+                                    throw task.getException();
+                                }catch(FirebaseAuthWeakPasswordException ex){
+                                    //La contraseña tiene menos de 6 caracteres
+                                    etPass.setError("La contraseña es demasiado corta, debe contener al menos 6 caracteres");
+                                    etPass.requestFocus();
+                                }catch(FirebaseAuthUserCollisionException ex){
+                                    //El usuario ya existe
+                                    etEmail.setError("Este usuario ya esta registrado");
+                                    etEmail.requestFocus();
+                                }catch (Exception ex){
+                                    //Excepciones varias
+                                    Toast.makeText(RegistroActivity.this, "Ha ocurrido un error desconocido", Toast.LENGTH_LONG).show();
+                                }
                             }
                         }
                     });

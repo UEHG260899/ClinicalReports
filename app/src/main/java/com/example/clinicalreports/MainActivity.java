@@ -13,9 +13,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     EditText etCorreo, etPass;
     FirebaseAuth firebaseAuth;
 
-    private FirebaseAuth.AuthStateListener authStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +40,6 @@ public class MainActivity extends AppCompatActivity {
         tvSignin = findViewById(R.id.tvSignIn);
         etCorreo = findViewById(R.id.etClaveR);
         etPass = findViewById(R.id.etCont);
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user != null){
-                    Toast.makeText(MainActivity.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
-                    //esto se debe de cambiar para que verifique si es un alumno o maestro
-                    startActivity(new Intent(MainActivity.this, DrawerMaestro.class));
-                }
-            }
-        };
 
         btnIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,13 +61,22 @@ public class MainActivity extends AppCompatActivity {
                     firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(!task.isSuccessful()){
-                                Toast.makeText(MainActivity.this, "Ocurrio un error", Toast.LENGTH_LONG);
-                            }else{
+                            if(task.isSuccessful()){
                                 //esto se debe de cambiar para que verifique si es un alumno o maestro
                                 startActivity(new Intent(MainActivity.this, DrawerMaestro.class));
-
-                                //comentario de prueba
+                            }else{
+                                try {
+                                    throw task.getException();
+                                }catch(FirebaseAuthInvalidUserException ex){
+                                    etCorreo.requestFocus();
+                                    etCorreo.setError("El usuario no esta regitrado");
+                                }catch (FirebaseAuthInvalidCredentialsException ex){
+                                    //Cuando la contraseña no coincide o el usuario no tiene contraseña
+                                    etPass.requestFocus();
+                                    etPass.setError("La contraseña no coincide con los registros de este usuario");
+                                }catch (Exception ex){
+                                    Toast.makeText(MainActivity.this, "Ocurrio un error desconocido", Toast.LENGTH_LONG).show();
+                                }
                             }
                         }
                     });
