@@ -1,6 +1,7 @@
 package com.example.clinicalreports;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.clinicalreports.mdbf.Profesor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -19,6 +21,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -28,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     TextView tvSignin;
     EditText etCorreo, etPass;
     FirebaseAuth firebaseAuth;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference profesorRef;
 
 
     @Override
@@ -35,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        iniciarFirebase();
         firebaseAuth = FirebaseAuth.getInstance();
         btnIn = findViewById(R.id.btnIngresar);
         tvSignin = findViewById(R.id.tvSignIn);
@@ -62,8 +70,40 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                //esto se debe de cambiar para que verifique si es un alumno o maestro
-                                startActivity(new Intent(MainActivity.this, DrawerMaestro.class));
+                                //Busca en el documento Profesor un elemento que contenga el correo ingresado
+                                profesorRef.orderByChild("correo").equalTo(etCorreo.getText().toString()).addChildEventListener(new ChildEventListener() {
+                                    @Override
+                                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                                        Profesor profesor = snapshot.getValue(Profesor.class);
+                                        if(profesor == null){
+                                            //Es un alumno
+                                            startActivity(new Intent(MainActivity.this, DrawerAlumno.class));
+                                        }else{
+                                            //Es un profesor
+                                            startActivity(new Intent(MainActivity.this, DrawerMaestro.class));
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                                    }
+
+                                    @Override
+                                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                                    }
+
+                                    @Override
+                                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
                             }else{
                                 try {
                                     throw task.getException();
@@ -92,5 +132,11 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void iniciarFirebase(){
+        FirebaseApp.initializeApp(this);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        profesorRef = firebaseDatabase.getReference("Profesor");
     }
 }
