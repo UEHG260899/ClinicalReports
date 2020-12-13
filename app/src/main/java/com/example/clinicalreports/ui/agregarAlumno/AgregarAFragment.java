@@ -1,4 +1,4 @@
-package com.example.clinicalreports.ui.crearAlumno;
+package com.example.clinicalreports.ui.agregarAlumno;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.clinicalreports.R;
 
-public class CrearAFragment extends Fragment {
+public class AgregarAFragment extends Fragment {
 
-    private CrearAViewModel crearAViewModel;
+    private AgregarAViewModel agregarAViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        crearAViewModel =
-                new ViewModelProvider(this).get(CrearAViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_crear_alumno, container, false);
+        agregarAViewModel =
+                new ViewModelProvider(this).get(AgregarAViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_agregar_alumno, container, false);
         final TextView textView = root.findViewById(R.id.text_gallery);
-        crearAViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        agregarAViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

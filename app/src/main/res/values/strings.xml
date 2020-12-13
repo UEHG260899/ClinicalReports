@@ -34,16 +34,16 @@
     <!--Home-->
     <string name="titulo_home">¡Bienvenido a Clinical Reports!</string>
     <string name="desc_home">Para comenzar, haga click en el menú de la izquierda</string>
-    <!--Crear alumno-->
-    <string name="titulo_crearAl">Vamos a dar de alta algunos alumnos:</string>
-    <string name="nom_alu">Nombre del Alumno</string>
-    <string name="apellido">Apellido</string>
-    <string name="noCtrl">No. de Control</string>
-    <string name="agregar_alu">Agregar Alumno</string>
+    <!--Agregar alumno-->
+    <string name="titulo_crearAl">Vamos a agregar algunos alumnos:</string>
+    <string name="agregar">Agregar al Grupo</string>
     <!--Eliminar alumno-->
     <string name="titulo_eliminarAl">Ahora viene lo triste... Eliminemos a un alumno</string>
     <string name="busca_alu">Buscar Alumno</string>
     <string name="eliminar_alu">Eliminar Alumno</string>
+    <string name="nom_alu">Nombre del Alumno:</string>
+    <string name="apellido">Apellido</string>
+    <string name="noCtrl">No. de Control</string>
     <!--Listar reportes-->
     <string name="titulo_busq_prof">Ingrese el número de control de un alumno para desplegar los reportes que ha enviado</string>
 
