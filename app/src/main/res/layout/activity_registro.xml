@@ -21,6 +21,30 @@
             android:text="@string/titulo_reg"
             android:textSize="20sp" />
 
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioProf"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/radio_prof"
+                android:onClick="onRadioButtonClicked"/>
+
+            <RadioButton
+                android:id="@+id/radioAlu"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/radio_alu"
+                android:onClick="onRadioButtonClicked"/>
+        </RadioGroup>
+
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
@@ -32,7 +56,7 @@
                 android:id="@+id/etNomR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text|textEmailAddress" />
+                android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,6 +107,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutClave"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,7 +118,7 @@
                 android:id="@+id/etClaveR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number|textEmailAddress" />
+                android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
