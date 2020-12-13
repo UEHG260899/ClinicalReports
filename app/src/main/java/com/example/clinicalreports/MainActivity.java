@@ -26,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     EditText etCorreo, etPass;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference profesorRef;
+    DatabaseReference profesorRef, alumnoRef;
 
 
     @Override
@@ -70,18 +71,41 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                //Busca en el documento Profesor un elemento que contenga el correo ingresado
-                                profesorRef.orderByChild("correo").equalTo(etCorreo.getText().toString()).addChildEventListener(new ChildEventListener() {
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                //Busca en el documento Profesor un elemento que contenga el uuid del usuario
+                                Query query = profesorRef.orderByChild("uuid").equalTo(user.getUid());
+                                query.addChildEventListener(new ChildEventListener() {
                                     @Override
                                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                                        Profesor profesor = snapshot.getValue(Profesor.class);
-                                        if(profesor == null){
-                                            //Es un alumno
-                                            startActivity(new Intent(MainActivity.this, DrawerAlumno.class));
-                                        }else{
-                                            //Es un profesor
-                                            startActivity(new Intent(MainActivity.this, DrawerMaestro.class));
-                                        }
+                                        startActivity(new Intent(MainActivity.this, DrawerMaestro.class));
+                                    }
+
+                                    @Override
+                                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                                    }
+
+                                    @Override
+                                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                                    }
+
+                                    @Override
+                                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                                //Busca en el documento Alumnos un elemento que contenga el uuid del usuario
+                                Query queryAlu = alumnoRef.orderByChild("uuid").equalTo(user.getUid());
+                                queryAlu.addChildEventListener(new ChildEventListener() {
+                                    @Override
+                                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                                        startActivity(new Intent(MainActivity.this, DrawerAlumno.class));
                                     }
 
                                     @Override
@@ -137,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
     private void iniciarFirebase(){
         FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
-        profesorRef = firebaseDatabase.getReference("Profesor");
+        profesorRef = firebaseDatabase.getReference("Profesores");
+        alumnoRef = firebaseDatabase.getReference("Alumnos");
     }
 }

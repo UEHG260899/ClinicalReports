@@ -6,6 +6,7 @@ public class Profesor {
     private String correo;
     private String password;
     private String clave;
+    private String uuid;
 
 
     public Profesor(){
@@ -42,5 +43,13 @@ public class Profesor {
 
     public void setClave(String clave) {
         this.clave = clave;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

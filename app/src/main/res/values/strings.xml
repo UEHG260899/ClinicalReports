@@ -5,15 +5,18 @@
     <string name="titulo">¡Bienvenido a Clinical Reports!</string>
     <string name="correo">Correo electrónico</string>
     <string name="contrasenia">Contraseña</string>
-    <string name="leyenda_registro">¿Aún no esta registrado? Haga click aqui (Exclusivo profesores)</string>
+    <string name="leyenda_registro">¿Aún no esta registrado? Haga click aqui</string>
     <string name="ingresar">Ingresar</string>
 
 
     <!--Cadenas del registro-->
     <string name="titulo_reg">Necesitamos algunos datos</string>
+    <string name="radio_prof">Profesor</string>
+    <string name="radio_alu">Alumno</string>
     <string name="conf_cont">Confirmar contraseña</string>
     <string name="nombre">Nombre</string>
     <string name="clave_maestro">Clave de Docente</string>
+    <string name="clave_alu">No. Control</string>
     <string name="registro">Registrarse</string>
     <string name="title_activity_drawer_maestro">DrawerMaestro</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
