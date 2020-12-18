@@ -131,9 +131,10 @@ public class MainActivity extends AppCompatActivity {
                             }else{
                                 try {
                                     throw task.getException();
+
                                 }catch(FirebaseAuthInvalidUserException ex){
                                     etCorreo.requestFocus();
-                                    etCorreo.setError("El usuario no esta regitrado");
+                                    etCorreo.setError("El usuario no esta registrado");
                                 }catch (FirebaseAuthInvalidCredentialsException ex){
                                     //Cuando la contraseña no coincide o el usuario no tiene contraseña
                                     etPass.requestFocus();

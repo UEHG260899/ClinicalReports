@@ -8,6 +8,7 @@ public class Alumno {
     private String reportes;
     private String correo;
     private String password;
+    private String profesor;
 
     public Alumno(){
 
@@ -59,5 +60,17 @@ public class Alumno {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getProfesor() {
+        return profesor;
+    }
+
+    public void setProfesor(String profesor) {
+        this.profesor = profesor;
+    }
+
+    public String toString(){
+        return nombre + " No Ctrl: " + noCtrl;
     }
 }
