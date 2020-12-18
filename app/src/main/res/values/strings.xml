@@ -37,6 +37,7 @@
     <!--Agregar alumno-->
     <string name="titulo_crearAl">Vamos a agregar algunos alumnos:</string>
     <string name="agregar">Agregar al Grupo</string>
+    <string name="info_lv">Alumnos en el grupo</string>
     <!--Eliminar alumno-->
     <string name="titulo_eliminarAl">Ahora viene lo triste... Eliminemos a un alumno</string>
     <string name="busca_alu">Buscar Alumno</string>

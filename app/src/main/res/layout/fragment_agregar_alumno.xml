@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                 android:hint="@string/noCtrl">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etIDEl"
+                    android:id="@+id/etNoctrlAg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal" />
@@ -116,11 +116,21 @@
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvGrupo"
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="@string/info_lv"
+            android:textSize="16sp" />
+
+        <ListView
+            android:id="@+id/lvAlumnos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp" />
 
     </LinearLayout>
-</ScrollView>
+
+</FrameLayout>

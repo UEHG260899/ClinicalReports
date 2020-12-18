@@ -69,4 +69,8 @@ public class Alumno {
     public void setProfesor(String profesor) {
         this.profesor = profesor;
     }
+
+    public String toString(){
+        return nombre + " No Ctrl: " + noCtrl;
+    }
 }
