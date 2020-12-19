@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,6 +22,13 @@
             android:text="@string/titulo_crear_rep"
             android:textSize="16sp" />
 
+        <ImageView
+            android:id="@+id/ivFotoRep"
+            android:layout_width="196dp"
+            android:layout_height="171dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_menu_camera" />
+
         <TextView
             android:id="@+id/textView8"
             android:layout_width="match_parent"
@@ -37,7 +45,7 @@
             android:hint="@string/nombre">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etNombreDuenioa"
+                android:id="@+id/etNombreDuenioRep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -52,7 +60,7 @@
             android:hint="@string/telefono">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etTelefonoa"
+                android:id="@+id/etTelefonoRep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number" />
@@ -75,33 +83,49 @@
             android:hint="@string/nombre">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etNomAna"
+                android:id="@+id/etNomAnRep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="@string/fecha_nac_caballo">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etFechaa"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="date" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
         <Spinner
-            android:id="@+id/spRazaa"
+            android:id="@+id/spRazaRep"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="245dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="@string/fecha_nac_caballo">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etFechaRep"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="date" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/btnCalendarioRep"
+                android:layout_width="246dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:src="@android:drawable/ic_menu_my_calendar" />
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -111,7 +135,7 @@
             android:hint="@string/diagnostico">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etDiagnosticoa"
+                android:id="@+id/etDiagnosticoRep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -126,19 +150,34 @@
             android:hint="@string/tratamiento">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etTrata"
+                android:id="@+id/etTratRep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/btnCrearRep"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/crear_repo" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCrearRep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/crear_repo" />
+
+            <Button
+                android:id="@+id/btnLimparRep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:text="@string/limpia_alu" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
