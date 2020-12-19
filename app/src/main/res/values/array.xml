@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="especie">
+        <item>Seleccione una Especie</item>
+        <item>Caballo</item>
+        <item>Vaca</item>
+        <item>Cerdo</item>
+    </string-array>
+
+</resources>
