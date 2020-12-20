@@ -5,9 +5,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -21,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -188,25 +191,29 @@ public class CrearRepFragment extends Fragment implements View.OnClickListener, 
                 } else {
                     if (validaciones()) {
                         getUbicacion();
-                        Reporte rep = new Reporte();
-                        rep.setUuid(UUID.randomUUID().toString());
-                        rep.setNomDu(etNomDu.getText().toString());
-                        rep.setTelefono(etTelefono.getText().toString());
-                        rep.setNomAn(etNomAn.getText().toString());
-                        rep.setEspecie(r);
-                        rep.setFecha(etFecha.getText().toString());
-                        rep.setDiagnostico(etDiag.getText().toString());
-                        rep.setTratamiento(etTrat.getText().toString());
-                        rep.setLatitud(latitud);
-                        rep.setLongitud(longitud);
-                        rep.setImagen(img);
-                        databaseReference.child(user.getUid()).child("reportes").child(rep.getUuid()).setValue(rep).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getContext(), "Reporte guardado de manera exitosa", Toast.LENGTH_SHORT).show();
-                                limpiar();
-                            }
-                        });
+                        if(longitud.isEmpty() || latitud.isEmpty()){
+                            Toast.makeText(getContext(), "No es posible determinar una ubicación en estos momentos, le sugerimos actualizar y volver a intentarlo", Toast.LENGTH_LONG).show();
+                        }else{
+                            Reporte rep = new Reporte();
+                            rep.setUuid(UUID.randomUUID().toString());
+                            rep.setNomDu(etNomDu.getText().toString());
+                            rep.setTelefono(etTelefono.getText().toString());
+                            rep.setNomAn(etNomAn.getText().toString());
+                            rep.setEspecie(r);
+                            rep.setFecha(etFecha.getText().toString());
+                            rep.setDiagnostico(etDiag.getText().toString());
+                            rep.setTratamiento(etTrat.getText().toString());
+                            rep.setLatitud(latitud);
+                            rep.setLongitud(longitud);
+                            rep.setImagen(img);
+                            databaseReference.child(user.getUid()).child("reportes").child(rep.getUuid()).setValue(rep).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getContext(), "Reporte guardado de manera exitosa", Toast.LENGTH_SHORT).show();
+                                    limpiar();
+                                }
+                            });
+                        }
                     }
                 }
 
@@ -271,7 +278,17 @@ public class CrearRepFragment extends Fragment implements View.OnClickListener, 
     }
 
     private void activaGPS() {
-
+        AlertDialog.Builder dialogo = new AlertDialog.Builder(getContext());
+        dialogo.setMessage("Es necesario activar el GPS, ¿Desea hacerlo ahora?");
+        dialogo.setCancelable(false);
+        dialogo.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            }
+        });
+        dialogo.setNegativeButton("No", null);
+        dialogo.show();
     }
 
     private void getUbicacion() {
