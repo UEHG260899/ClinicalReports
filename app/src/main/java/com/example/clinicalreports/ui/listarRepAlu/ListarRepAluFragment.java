@@ -154,7 +154,6 @@ public class ListarRepAluFragment extends Fragment implements View.OnClickListen
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ListaReportes.clear();
                 for (DataSnapshot objSnapshot : snapshot.getChildren()) {
-                    System.out.println(objSnapshot);
                     Reporte rep = objSnapshot.getValue(Reporte.class);
                     ListaReportes.add(rep);
                     if (getContext() != null) {
