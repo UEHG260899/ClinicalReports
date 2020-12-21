@@ -53,6 +53,7 @@
     <string name="menu_home_alu">Bienvenido</string>
     <string name="menu_crear_rep">Crear un reporte</string>
     <string name="menu_listar_rep_alu">Lista de Reportes</string>
+    <string name="menu_editar_rep">Editar Reporte</string>
     <!--Crear reportes-->
     <string name="titulo_crear_rep">Comenzemos a crear tu reporte:</string>
     <string name="titulo_duenio">Datos del Dueño</string>
@@ -66,4 +67,9 @@
     <!--Listar reportes alu-->
     <string name="titulo_listar_al">Aqui podras ver todos los reportes que has enviado</string>
     <string name="limpia_alu">Limpiar</string>
+    <!--Editar reportes-->
+    <string name="titulo_editar_alu">Editar Reportes</string>
+    <string name="buscar_rep">Buscar</string>
+    <string name="nombre_an">Nombre del Animal</string>
+    <string name="editar">Editar</string>
 </resources>

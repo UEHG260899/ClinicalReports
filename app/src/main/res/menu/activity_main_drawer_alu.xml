@@ -17,6 +17,11 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_listar_rep_alu" />
 
+        <item
+            android:id="@+id/nav_editar_rep_alu"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_editar_rep" />
+
 
     </group>
 </menu>

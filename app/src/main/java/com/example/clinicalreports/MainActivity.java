@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                                         startActivity(new Intent(MainActivity.this, DrawerMaestro.class));
+                                        finish();
                                     }
 
                                     @Override
@@ -106,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                                         startActivity(new Intent(MainActivity.this, DrawerAlumno.class));
+                                        finish();
                                     }
 
                                     @Override

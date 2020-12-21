@@ -246,7 +246,7 @@ public class CrearRepFragment extends Fragment implements View.OnClickListener, 
 
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-            String path = MediaStore.Images.Media.insertImage(getContext().getContentResolver(), imageBitmap, "Title", null);
+            String path = MediaStore.Images.Media.insertImage(getContext().getContentResolver(), imageBitmap, "IMG_" + System.currentTimeMillis(), null);
             photoUri = Uri.parse(path);
 
             cargaArchivo();
