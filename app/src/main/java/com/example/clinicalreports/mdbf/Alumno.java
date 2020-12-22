@@ -1,11 +1,13 @@
 package com.example.clinicalreports.mdbf;
 
+import java.util.HashMap;
+
 public class Alumno {
 
     private String nombre;
     private String uuid;
     private String noCtrl;
-    private String reportes;
+    private Reporte reportes;
     private String correo;
     private String password;
     private String profesor;
@@ -38,13 +40,6 @@ public class Alumno {
         this.noCtrl = noCtrl;
     }
 
-    public String getReportes() {
-        return reportes;
-    }
-
-    public void setReportes(String reportes) {
-        this.reportes = reportes;
-    }
 
     public String getCorreo() {
         return correo;
@@ -72,5 +67,13 @@ public class Alumno {
 
     public String toString(){
         return nombre + " No Ctrl: " + noCtrl;
+    }
+
+    public Reporte getReportes() {
+        return reportes;
+    }
+
+    public void setReportes(Reporte reportes) {
+        this.reportes = reportes;
     }
 }
