@@ -73,11 +73,11 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/tvApellidoAlu"
+            android:id="@+id/tvCorreoAlu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="@string/apellido"
+            android:text="@string/correo_Eli"
             android:textSize="16sp" />
 
         <TextView
@@ -88,11 +88,40 @@
             android:text="@string/noCtrl"
             android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/btnEliminarAlu"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/eliminar_alu" />
+            android:layout_height="84dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnEliminarAlu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/eliminar_alu" />
+
+            <Button
+                android:id="@+id/btnBajaClase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/baja_alu" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnLimpia"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:layout_weight="1"
+                android:text="@string/limpia_aluE" />
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>
