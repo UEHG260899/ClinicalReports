@@ -73,11 +73,11 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/tvApellidoAlu"
+            android:id="@+id/tvCorreoAlu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="@string/apellido"
+            android:text="@string/correo_Eli"
             android:textSize="16sp" />
 
         <TextView
@@ -88,11 +88,30 @@
             android:text="@string/noCtrl"
             android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/btnEliminarAlu"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/eliminar_alu" />
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnLimpiaEl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:text="@string/limpia_aluE" />
+
+            <Button
+                android:id="@+id/btnBaja"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:text="@string/baja_alu" />
+
+
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>
