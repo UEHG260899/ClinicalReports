@@ -7,7 +7,7 @@ public class Alumno {
     private String nombre;
     private String uuid;
     private String noCtrl;
-    private Reporte reportes;
+    private HashMap<String, Reporte> reportes;
     private String correo;
     private String password;
     private String profesor;
@@ -39,8 +39,7 @@ public class Alumno {
     public void setNoCtrl(String noCtrl) {
         this.noCtrl = noCtrl;
     }
-
-
+    
     public String getCorreo() {
         return correo;
     }
@@ -69,11 +68,11 @@ public class Alumno {
         return nombre + " No Ctrl: " + noCtrl;
     }
 
-    public Reporte getReportes() {
+    public HashMap<String, Reporte> getReportes() {
         return reportes;
     }
 
-    public void setReportes(Reporte reportes) {
+    public void setReportes(HashMap<String, Reporte> reportes) {
         this.reportes = reportes;
     }
 }
