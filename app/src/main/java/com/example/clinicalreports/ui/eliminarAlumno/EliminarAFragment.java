@@ -36,7 +36,7 @@ public class EliminarAFragment extends Fragment implements View.OnClickListener 
 
     private Alumno alumnoSelected;
 
-    private Button btnEliminar, btnBuscar, btnLimpiar,btnBaja;
+    private Button btnBuscar, btnLimpiar,btnBaja;
 
     private TextView tvNombreAlu, tvCorreoAlu, tvNumControl;
 
@@ -76,24 +76,21 @@ public class EliminarAFragment extends Fragment implements View.OnClickListener 
     }
 
     private void botonesComp(View root) {
-        btnEliminar = root.findViewById(R.id.btnEliminarAlu);
-        btnEliminar.setEnabled(false);
-        btnLimpiar = root.findViewById(R.id.btnLimpia);
+        btnLimpiar = root.findViewById(R.id.btnLimpiaEl);
         btnLimpiar.setEnabled(false);
         btnBuscar = root.findViewById(R.id.btnBuscaAl);
         btnBuscar.setEnabled(true);
-        btnBaja = root.findViewById(R.id.btnBajaClase);
+        btnBaja = root.findViewById(R.id.btnBaja);
         btnBaja.setEnabled(true);
 
         btnBuscar.setOnClickListener(this);
-        btnEliminar.setOnClickListener(this);
         btnLimpiar.setOnClickListener(this);
         btnBaja.setOnClickListener(this);
 
         btnBaja.setEnabled(false);
 
         btnLimpiar.setEnabled(false);
-        btnEliminar.setEnabled(false);
+
 
 
     }
@@ -122,14 +119,10 @@ public class EliminarAFragment extends Fragment implements View.OnClickListener 
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if(snapshot.exists()){
-
-
                                 for(DataSnapshot objSnapshot : snapshot.getChildren()){
                                     alumnoSelected = objSnapshot.getValue(Alumno.class);
-                                    System.out.println(alumnoSelected.getProfesor());
-                                    if (alumnoSelected.getProfesor().equals(user.getUid())){
+                                    if (alumnoSelected.getProfesor().equals(user.getUid()) && alumnoSelected.getProfesor() != null){
                                         btnLimpiar.setEnabled(true);
-                                        btnEliminar.setEnabled(true);
                                         btnBaja.setEnabled(true);
 
                                         tvNombreAlu.setText("Nombre del alumno: " + alumnoSelected.getNombre());
@@ -154,7 +147,7 @@ public class EliminarAFragment extends Fragment implements View.OnClickListener 
                     });
                 }
                 break;
-            case R.id.btnEliminarAlu:
+            case R.id.btnBaja:
                 View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_alumno, null);
                 ((TextView) dialogView.findViewById(R.id.tvInfoAlumno)).setText("¿Desea eliminar el registro?\n" +
                         "Correo: " + alumnoSelected.getCorreo() + "\n" +
@@ -180,29 +173,21 @@ public class EliminarAFragment extends Fragment implements View.OnClickListener 
                 });
                 dialogo.show();
                 break;
-            case R.id.btnLimpia:
+            case R.id.btnLimpiaEl:
                 limpiar();
-                break;
-            case R.id.btnBajaClase:
-                alumnoSelected.setProfesor("");
-                databaseReference.child(alumnoSelected.getUuid()).setValue(alumnoSelected).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(getContext(), "Alumno eliminado del grupo", Toast.LENGTH_SHORT).show();
-                        limpiar();
-                    }
-                });
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
         }
     }
     private void aceptar(String id) {
-        databaseReference.child(id).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {                    @Override
-        public void onSuccess(Void aVoid) {
-            Toast.makeText(getContext(), "Registro eliminado de forma satisfactoria", Toast.LENGTH_SHORT).show();
-            limpiar();
-        }
+        alumnoSelected.setProfesor(null);
+        databaseReference.child(alumnoSelected.getUuid()).setValue(alumnoSelected).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(getContext(), "Alumno eliminado del grupo", Toast.LENGTH_SHORT).show();
+                limpiar();
+            }
         });
     }
 
@@ -212,7 +197,6 @@ public class EliminarAFragment extends Fragment implements View.OnClickListener 
         tvNumControl.setText("No. de Control: ");
         etNoctrl.setText("");
         btnLimpiar.setEnabled(false);
-        btnEliminar.setEnabled(false);
         btnBaja.setEnabled(false);
     }
 }

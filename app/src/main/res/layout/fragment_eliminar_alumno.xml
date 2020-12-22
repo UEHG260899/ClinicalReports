@@ -90,37 +90,27 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="84dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnEliminarAlu"
+                android:id="@+id/btnLimpiaEl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:text="@string/eliminar_alu" />
+                android:text="@string/limpia_aluE" />
 
             <Button
-                android:id="@+id/btnBajaClase"
+                android:id="@+id/btnBaja"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:text="@string/baja_alu" />
 
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnLimpia"
-                android:layout_width="match_parent"
-                android:layout_height="37dp"
-                android:layout_weight="1"
-                android:text="@string/limpia_aluE" />
         </LinearLayout>
 
     </LinearLayout>

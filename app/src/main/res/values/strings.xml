@@ -41,7 +41,6 @@
     <!--Eliminar alumno-->
     <string name="titulo_eliminarAl">Ahora viene lo triste... Eliminemos a un alumno</string>
     <string name="busca_alu">Buscar Alumno</string>
-    <string name="eliminar_alu">Eliminar Registro</string>
     <string name="baja_alu">Eliminar de Clase</string>
     <string name="nom_alu">Nombre del Alumno:</string>
     <string name="correo_Eli">Correo:</string>
