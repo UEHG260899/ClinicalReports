@@ -39,7 +39,7 @@ public class Alumno {
     public void setNoCtrl(String noCtrl) {
         this.noCtrl = noCtrl;
     }
-    
+
     public String getCorreo() {
         return correo;
     }

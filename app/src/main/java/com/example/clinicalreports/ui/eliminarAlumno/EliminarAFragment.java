@@ -121,15 +121,17 @@ public class EliminarAFragment extends Fragment implements View.OnClickListener 
                             if(snapshot.exists()){
                                 for(DataSnapshot objSnapshot : snapshot.getChildren()){
                                     alumnoSelected = objSnapshot.getValue(Alumno.class);
-                                    if (alumnoSelected.getProfesor().equals(user.getUid()) && alumnoSelected.getProfesor() != null){
-                                        btnLimpiar.setEnabled(true);
-                                        btnBaja.setEnabled(true);
+                                    if(alumnoSelected.getProfesor() != null){
+                                        if (alumnoSelected.getProfesor().equals(user.getUid())){
+                                            btnLimpiar.setEnabled(true);
+                                            btnBaja.setEnabled(true);
 
-                                        tvNombreAlu.setText("Nombre del alumno: " + alumnoSelected.getNombre());
-                                        tvCorreoAlu.setText("Apellido:  "+ alumnoSelected.getNoCtrl());
-                                        tvNumControl.setText("No. de Control: " + alumnoSelected.getCorreo());
-                                    }else{
-                                        Toast.makeText(getContext(), "No hay resultados", Toast.LENGTH_SHORT).show();
+                                            tvNombreAlu.setText("Nombre del alumno: " + alumnoSelected.getNombre());
+                                            tvCorreoAlu.setText("Apellido:  "+ alumnoSelected.getNoCtrl());
+                                            tvNumControl.setText("No. de Control: " + alumnoSelected.getCorreo());
+                                        }else{
+                                            Toast.makeText(getContext(), "No hay resultados", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
 
                                 }
