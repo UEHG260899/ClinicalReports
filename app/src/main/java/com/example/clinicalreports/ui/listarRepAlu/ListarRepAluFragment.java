@@ -3,6 +3,9 @@ package com.example.clinicalreports.ui.listarRepAlu;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -19,6 +22,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.clinicalreports.R;
@@ -83,19 +87,28 @@ public class ListarRepAluFragment extends Fragment implements View.OnClickListen
                 tvTratamienAni.setText("Tratamiento: "+reporteSelected.getTratamiento());
                 btnLimpiar.setEnabled(true);
 
-                FirebaseStorage storage = FirebaseStorage.getInstance();
-                StorageReference storageRef = storage.getReference().child("imagenes");
-                storageRef.child(reporteSelected.getImagen()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Glide.with(getContext()).load(uri).into(ivfoto);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
+                ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
-                    }
-                });
+                if (networkInfo != null && networkInfo.isConnected()) {
+                    FirebaseStorage storage = FirebaseStorage.getInstance();
+                    StorageReference storageRef = storage.getReference().child("imagenes");
+                    storageRef.child(reporteSelected.getImagen()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Glide.with(getContext()).load(uri).into(ivfoto);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    });
+                } else {
+                    Toast.makeText(getContext(), "En estos momento no se puede observar la foto", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "ya que usted se encuentra sin conexión", Toast.LENGTH_SHORT).show();
+
+                }
 
 
             }
