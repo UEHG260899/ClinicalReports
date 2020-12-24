@@ -3,8 +3,11 @@ package com.example.clinicalreports.ui.eliminarUsu;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -59,14 +62,14 @@ public class EliminarUsuFragment extends Fragment implements View.OnClickListene
         // TODO: Use the ViewModel
     }
 
-    private void iniciarFirebase(){
+    private void iniciarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Alumnos");
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
     }
 
-    private void iniciarComponentes(View root){
+    private void iniciarComponentes(View root) {
         btnEliminar = root.findViewById(R.id.btnEliminaUsu);
 
         btnEliminar.setOnClickListener(this);
@@ -74,7 +77,7 @@ public class EliminarUsuFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.btnEliminaUsu){
+        if (v.getId() == R.id.btnEliminaUsu) {
             View dialogoView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_alumno, null);
             ((TextView) dialogoView.findViewById(R.id.tvInfoAlumno)).setText("¿Estas seguro que deseas eliminar de forma permanente los datos?\n" +
                     "Esta acción no se podra deshacer");
@@ -93,19 +96,32 @@ public class EliminarUsuFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    private void aceptar(){
-        databaseReference.child(user.getUid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(getContext(), "Usuario eliminado con exito, esperamos verte de nuevo pronto!", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getContext(), MainActivity.class));
-                        getActivity().finish();
-                    }
-                });
-            }
-        });
+    private void aceptar() {
+        
+        ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()) {
+            databaseReference.child(user.getUid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(getContext(), "Usuario eliminado con exito, esperamos verte de nuevo pronto!", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(getContext(), MainActivity.class));
+                            getActivity().finish();
+                        }
+                    });
+                }
+            });
+        } else {
+            databaseReference.child(user.getUid()).removeValue();
+            user.delete();
+            Toast.makeText(getContext(), "Usuario eliminado con exito, esperamos verte de nuevo pronto!" + "\nEstado: Sin conexión", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(getContext(), MainActivity.class));
+            getActivity().finish();
+
+        }
     }
 }
