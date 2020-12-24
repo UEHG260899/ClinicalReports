@@ -22,6 +22,11 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_editar_rep" />
 
+        <item
+            android:id="@+id/nav_eliminar_usu"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/nav_eliminar_usu"/>
+
 
     </group>
 </menu>

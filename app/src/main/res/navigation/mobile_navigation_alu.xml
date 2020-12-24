@@ -29,4 +29,10 @@
         android:label="@string/menu_editar_rep"
         tools:layout="@layout/fragment_editar_rep" />
 
+    <fragment
+        android:id="@+id/nav_eliminar_usu"
+        android:name="com.example.clinicalreports.ui.eliminarUsu.EliminarUsuFragment"
+        android:label="@string/nav_eliminar_usu"
+        tools:layout="@layout/fragment_eliminar_usu" />
+
 </navigation>

@@ -74,4 +74,8 @@
     <string name="buscar_rep">Buscar</string>
     <string name="nombre_an">Nombre del Animal</string>
     <string name="editar">Editar</string>
+    <!--Eliminar usuario-->
+    <string name="nav_eliminar_usu">Eliminar Cuenta</string>
+    <string name="advertencia">Si estas aqui es porque deseas eliminar de manera permanente tus datos. Si deseas continuar, da click en el boton Eliminar Datos</string>
+    <string name="eliminar_dat">Eliminar Datos</string>
 </resources>
