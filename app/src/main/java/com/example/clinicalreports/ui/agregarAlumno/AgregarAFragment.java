@@ -1,6 +1,10 @@
 package com.example.clinicalreports.ui.agregarAlumno;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +36,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+import static androidx.core.content.ContextCompat.getSystemService;
+
 public class AgregarAFragment extends Fragment implements View.OnClickListener {
 
     private AgregarAViewModel agregarAViewModel;
@@ -45,7 +52,6 @@ public class AgregarAFragment extends Fragment implements View.OnClickListener {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     FirebaseUser user;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         agregarAViewModel =
@@ -67,13 +73,13 @@ public class AgregarAFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    private void iniciarComp(View root){
+    private void iniciarComp(View root) {
         botonesComp(root);
         textComp(root);
         editComp(root);
     }
 
-    private void botonesComp(View root){
+    private void botonesComp(View root) {
         btnLimpiar = root.findViewById(R.id.btnLimpiarAg);
         btnLimpiar.setEnabled(false);
         btnAgregar = root.findViewById(R.id.btnAgregar);
@@ -85,26 +91,26 @@ public class AgregarAFragment extends Fragment implements View.OnClickListener {
         btnAgregar.setOnClickListener(this);
     }
 
-    private void textComp(View root){
+    private void textComp(View root) {
         tvNoctrl = root.findViewById(R.id.tvNoctrlAg);
         tvNombre = root.findViewById(R.id.tvnomAluAg);
         tvCorreo = root.findViewById(R.id.tvCorreoAg);
     }
 
-    private void editComp(View root){
+    private void editComp(View root) {
         etNoctrl = root.findViewById(R.id.etNoctrlAg);
         lvAlumnos = root.findViewById(R.id.lvAlumnos);
     }
 
-    private void listarDatos(){
+    private void listarDatos() {
         databaseReference.orderByChild("profesor").equalTo(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listaAlumnos.clear();
-                for(DataSnapshot objSnapshot : snapshot.getChildren()){
+                for (DataSnapshot objSnapshot : snapshot.getChildren()) {
                     Alumno alu = objSnapshot.getValue(Alumno.class);
                     listaAlumnos.add(alu);
-                    if(getContext() != null){
+                    if (getContext() != null) {
                         arrayAdapter = new ArrayAdapter<Alumno>(getContext(), android.R.layout.simple_list_item_1, listaAlumnos);
                         lvAlumnos.setAdapter(arrayAdapter);
                     }
@@ -119,7 +125,7 @@ public class AgregarAFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    private  void limpiar(){
+    private void limpiar() {
         tvNombre.setText("Nombre del alumno: ");
         tvNoctrl.setText("No. de Control: ");
         tvCorreo.setText("Correo electrónico: ");
@@ -128,7 +134,7 @@ public class AgregarAFragment extends Fragment implements View.OnClickListener {
         etNoctrl.setText("");
     }
 
-    private void iniciarFirebase(){
+    private void iniciarFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Alumnos");
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -137,32 +143,32 @@ public class AgregarAFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnLimpiarAg:
                 limpiar();
                 break;
             case R.id.btnBuscaAg:
-                if(etNoctrl.getText().toString().isEmpty()){
+                if (etNoctrl.getText().toString().isEmpty()) {
                     etNoctrl.requestFocus();
                     etNoctrl.setError("Por favor ingrese un criterio de búsqueda");
-                }else{
+                } else {
                     String noCtrl = etNoctrl.getText().toString();
                     Query queryAlu = databaseReference.orderByChild("noCtrl").equalTo(noCtrl);
                     queryAlu.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.exists()){
+                            if (snapshot.exists()) {
                                 btnAgregar.setEnabled(true);
                                 btnLimpiar.setEnabled(true);
-                                for(DataSnapshot objSnapshot : snapshot.getChildren()){
+                                for (DataSnapshot objSnapshot : snapshot.getChildren()) {
                                     alumnoSelected = objSnapshot.getValue(Alumno.class);
                                     tvNombre.setText("Nombre del alumno: " + alumnoSelected.getNombre());
                                     tvNoctrl.setText("No. de Control: " + alumnoSelected.getNoCtrl());
                                     tvCorreo.setText("Correo electrónico: " + alumnoSelected.getCorreo());
                                 }
-                            }else{
+                            } else {
                                 limpiar();
-                                if(getContext() != null){
+                                if (getContext() != null) {
                                     Toast.makeText(getContext(), "No hay resultados", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -176,15 +182,28 @@ public class AgregarAFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.btnAgregar:
-                alumnoSelected.setProfesor(user.getUid());
-                databaseReference.child(alumnoSelected.getUuid()).setValue(alumnoSelected).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(getContext(), "Alumno agregado al grupo", Toast.LENGTH_SHORT).show();
+                if(getContext() != null ) {
+                    ConnectivityManager connectivityManager = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+                    if (networkInfo != null && networkInfo.isConnected()) {
+                        alumnoSelected.setProfesor(user.getUid());
+                        databaseReference.child(alumnoSelected.getUuid()).setValue(alumnoSelected).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getContext(), "Alumno agregado al grupo", Toast.LENGTH_SHORT).show();
+                                limpiar();
+                            }
+                        });
+                    } else {
+                        alumnoSelected.setProfesor(user.getUid());
+                        databaseReference.child(alumnoSelected.getUuid()).setValue(alumnoSelected);
+                        Toast.makeText(getContext(), "Alumno agregado al grupo" + "\nEstado: Sin conexión", Toast.LENGTH_SHORT).show();
                         limpiar();
                     }
-                });
+                }
                 break;
         }
     }
+
+
 }

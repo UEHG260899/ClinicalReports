@@ -1,7 +1,10 @@
 package com.example.clinicalreports.ui.eliminarAlumno;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +31,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.lang.reflect.Array;
 
 public class EliminarAFragment extends Fragment implements View.OnClickListener {
     FirebaseDatabase firebaseDatabase;
@@ -183,14 +188,26 @@ public class EliminarAFragment extends Fragment implements View.OnClickListener 
         }
     }
     private void aceptar(String id) {
-        alumnoSelected.setProfesor(null);
-        databaseReference.child(alumnoSelected.getUuid()).setValue(alumnoSelected).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(getContext(), "Alumno eliminado del grupo", Toast.LENGTH_SHORT).show();
+        if(getContext() != null) {
+            ConnectivityManager connectivityManager = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+            if (networkInfo != null && networkInfo.isConnected()) {
+                alumnoSelected.setProfesor(null);
+                databaseReference.child(alumnoSelected.getUuid()).setValue(alumnoSelected).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getContext(), "Alumno eliminado del grupo", Toast.LENGTH_SHORT).show();
+                        limpiar();
+                    }
+                });
+            } else {
+                alumnoSelected.setProfesor(null);
+                databaseReference.child(alumnoSelected.getUuid()).setValue(alumnoSelected);
+                Toast.makeText(getContext(), "Alumno agregado al grupo" + "\nEstado: Sin conexión", Toast.LENGTH_SHORT).show();
                 limpiar();
             }
-        });
+        }
     }
 
     private void limpiar() {

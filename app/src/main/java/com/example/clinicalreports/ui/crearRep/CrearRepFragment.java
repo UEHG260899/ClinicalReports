@@ -15,6 +15,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -191,9 +193,9 @@ public class CrearRepFragment extends Fragment implements View.OnClickListener, 
                 } else {
                     if (validaciones()) {
                         getUbicacion();
-                        if(longitud.isEmpty() || latitud.isEmpty()){
+                        if (longitud.isEmpty() || latitud.isEmpty()) {
                             Toast.makeText(getContext(), "No es posible determinar una ubicación en estos momentos, le sugerimos actualizar y volver a intentarlo", Toast.LENGTH_LONG).show();
-                        }else{
+                        } else {
                             Reporte rep = new Reporte();
                             rep.setUuid(UUID.randomUUID().toString());
                             rep.setNomDu(etNomDu.getText().toString());
@@ -206,13 +208,23 @@ public class CrearRepFragment extends Fragment implements View.OnClickListener, 
                             rep.setLatitud(latitud);
                             rep.setLongitud(longitud);
                             rep.setImagen(img);
-                            databaseReference.child(user.getUid()).child("reportes").child(rep.getUuid()).setValue(rep).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(getContext(), "Reporte guardado de manera exitosa", Toast.LENGTH_SHORT).show();
-                                    limpiar();
-                                }
-                            });
+
+                            ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+                            if (networkInfo != null && networkInfo.isConnected()) {
+                                databaseReference.child(user.getUid()).child("reportes").child(rep.getUuid()).setValue(rep).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(getContext(), "Reporte guardado de manera exitosa", Toast.LENGTH_SHORT).show();
+                                        limpiar();
+                                    }
+                                });
+                            } else {
+                                databaseReference.child(user.getUid()).child("reportes").child(rep.getUuid()).setValue(rep);
+                                Toast.makeText(getContext(), "Reporte guardado de manera exitosa" + "\nEstado: Sin conexión", Toast.LENGTH_SHORT).show();
+                                limpiar();
+
+                            }
                         }
                     }
                 }
@@ -256,19 +268,30 @@ public class CrearRepFragment extends Fragment implements View.OnClickListener, 
 
     private void cargaArchivo() {
         img = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + "." + extension(photoUri);
-        StorageReference ref = storageReference.child(img);
+        ///////
+        ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
-        ref.putFile(photoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(getContext(), "Archivo cargado con exito", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), "Algo salio mal al cargar el archivo", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (networkInfo != null && networkInfo.isConnected()) {
+            StorageReference ref = storageReference.child(img);
+            ref.putFile(photoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(getContext(), "Archivo cargado con exito", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getContext(), "Algo salio mal al cargar el archivo", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            StorageReference ref = storageReference.child(img);
+            ref.putFile(photoUri);
+            Toast.makeText(getContext(), "Archivo cargado con exito", Toast.LENGTH_SHORT).show();
+        }
+//////
+
     }
 
     private String extension(Uri photoUri) {
