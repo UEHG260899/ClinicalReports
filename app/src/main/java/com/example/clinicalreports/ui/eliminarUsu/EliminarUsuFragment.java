@@ -117,7 +117,6 @@ public class EliminarUsuFragment extends Fragment implements View.OnClickListene
             });
         } else {
             databaseReference.child(user.getUid()).removeValue();
-            user.delete();
             Toast.makeText(getContext(), "Usuario eliminado con exito, esperamos verte de nuevo pronto!" + "\nEstado: Sin conexión", Toast.LENGTH_LONG).show();
             startActivity(new Intent(getContext(), MainActivity.class));
             getActivity().finish();

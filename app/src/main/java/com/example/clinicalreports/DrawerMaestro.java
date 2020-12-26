@@ -1,13 +1,19 @@
 package com.example.clinicalreports;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,6 +25,7 @@ import androidx.appcompat.widget.Toolbar;
 public class DrawerMaestro extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private TextView tvCorreo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +43,9 @@ public class DrawerMaestro extends AppCompatActivity {
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        tvCorreo = headerView.findViewById(R.id.tvCorreoProf);
+        tvCorreo.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -59,5 +69,19 @@ public class DrawerMaestro extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId() == R.id.action_logout){
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(DrawerMaestro.this, "Sesión terminada con exito", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(DrawerMaestro.this, MainActivity.class));
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

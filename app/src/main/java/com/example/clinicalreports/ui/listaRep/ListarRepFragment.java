@@ -26,6 +26,8 @@ import com.example.clinicalreports.R;
 import com.example.clinicalreports.mdbf.Alumno;
 import com.example.clinicalreports.mdbf.Reporte;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -198,6 +200,8 @@ public class ListarRepFragment extends Fragment implements View.OnClickListener,
                 }
                 gMap.clear();
                 gMap.addMarker(new MarkerOptions().position(new LatLng(latitud,longitud)).title("Ubicación del Animal"));
+                gMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitud, longitud)));
+                gMap.moveCamera(CameraUpdateFactory.zoomTo(15));
 
             }
         });
