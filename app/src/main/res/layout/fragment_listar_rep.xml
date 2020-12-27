@@ -49,12 +49,17 @@
                 android:layout_weight="1"
                 android:text="@string/busca_alu" />
         </LinearLayout>
-
-        <ListView
-            android:id="@+id/lvRepProf"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp">
+            <ListView
+                android:id="@+id/lvRepProf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 />
+        </ScrollView>
+
 
         <ScrollView
             android:layout_width="match_parent"

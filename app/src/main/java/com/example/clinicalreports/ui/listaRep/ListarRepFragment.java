@@ -265,8 +265,8 @@ public class ListarRepFragment extends Fragment implements View.OnClickListener,
                                 for(DataSnapshot objSnapshot : snapshot.getChildren()){
                                     alumnoSelected = objSnapshot.getValue(Alumno.class);
                                 }
-                                databaseReference = firebaseDatabase.getReference("Alumnos/" + alumnoSelected.getUuid() + "/");
-                                Query queryReporte = databaseReference.child("reportes");
+                                databaseReferenceReportes = firebaseDatabase.getReference("Alumnos/" + alumnoSelected.getUuid() + "/");
+                                Query queryReporte = databaseReferenceReportes.child("reportes");
                                 queryReporte.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -292,6 +292,7 @@ public class ListarRepFragment extends Fragment implements View.OnClickListener,
                                 if (getContext() != null) {
                                     Toast.makeText(getContext(), "No hay resultados", Toast.LENGTH_SHORT).show();
                                 }
+                                limpiar();
                             }
                         }
 
