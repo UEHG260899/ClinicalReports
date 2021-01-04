@@ -122,6 +122,7 @@ public class EditarRepFragment extends Fragment implements View.OnClickListener,
         btnBuscar.setOnClickListener(this);
         btnLimpiar.setOnClickListener(this);
         btnEditar.setOnClickListener(this);
+        btnCalendario.setOnClickListener(this);
         ivFoto.setOnClickListener(this);
     }
 

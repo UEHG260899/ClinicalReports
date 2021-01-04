@@ -204,7 +204,7 @@ public class EliminarAFragment extends Fragment implements View.OnClickListener 
             } else {
                 alumnoSelected.setProfesor(null);
                 databaseReference.child(alumnoSelected.getUuid()).setValue(alumnoSelected);
-                Toast.makeText(getContext(), "Alumno agregado al grupo" + "\nEstado: Sin conexión", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Alumno eliminado del grupo" + "\nEstado: Sin conexión", Toast.LENGTH_SHORT).show();
                 limpiar();
             }
         }

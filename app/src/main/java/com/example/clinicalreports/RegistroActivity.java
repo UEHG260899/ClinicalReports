@@ -77,6 +77,7 @@ public class RegistroActivity extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 startActivity(new Intent(RegistroActivity.this, DrawerAlumno.class));
+                                                finish();
                                             }
                                         });
                                     } else {
@@ -125,6 +126,7 @@ public class RegistroActivity extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 startActivity(new Intent(RegistroActivity.this, DrawerMaestro.class));
+                                                finish();
                                             }
                                         });
                                     }else{
